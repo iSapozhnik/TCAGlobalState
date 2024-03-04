@@ -22,7 +22,7 @@ struct RootScene: Scene {
                         reducer: { MainReducer() }
                     )
                 )
-                .frame(width: 700, height: 530)
+                .frame(width: 200, height: 300)
             }
         }
         .windowResizability(.contentSize)

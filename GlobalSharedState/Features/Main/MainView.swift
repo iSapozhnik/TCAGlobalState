@@ -50,7 +50,7 @@ struct PlayerView: View {
             }
             .padding(.horizontal, 16)
         }
-        .frame(width: 200, height: 50)
+        .frame(width: 168, height: 50)
     }
     
     private func buttonWithIconName(_ iconName: String, action: @escaping () -> Void) -> some View {

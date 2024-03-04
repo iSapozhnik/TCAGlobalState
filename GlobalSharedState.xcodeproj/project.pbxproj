@@ -12,7 +12,6 @@
 		FF557C572B96292A00EECCBC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FF557C562B96292A00EECCBC /* Preview Assets.xcassets */; };
 		FF557C602B962D9B00EECCBC /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = FF557C5F2B962D9B00EECCBC /* ComposableArchitecture */; };
 		FF557C622B962DDE00EECCBC /* PlayerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF557C612B962DDE00EECCBC /* PlayerState.swift */; };
-		FF557C662B962E7700EECCBC /* PlayerFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF557C652B962E7700EECCBC /* PlayerFeature.swift */; };
 		FF557C682B96304A00EECCBC /* PlayerClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF557C672B96304A00EECCBC /* PlayerClient.swift */; };
 		FF557C6B2B96317300EECCBC /* AppReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF557C6A2B96317300EECCBC /* AppReducer.swift */; };
 		FF557C6D2B9631CF00EECCBC /* PlayerAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF557C6C2B9631CF00EECCBC /* PlayerAction.swift */; };
@@ -28,7 +27,6 @@
 		FF557C562B96292A00EECCBC /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		FF557C582B96292A00EECCBC /* GlobalSharedState.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GlobalSharedState.entitlements; sourceTree = "<group>"; };
 		FF557C612B962DDE00EECCBC /* PlayerState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerState.swift; sourceTree = "<group>"; };
-		FF557C652B962E7700EECCBC /* PlayerFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerFeature.swift; sourceTree = "<group>"; };
 		FF557C672B96304A00EECCBC /* PlayerClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerClient.swift; sourceTree = "<group>"; };
 		FF557C6A2B96317300EECCBC /* AppReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppReducer.swift; sourceTree = "<group>"; };
 		FF557C6C2B9631CF00EECCBC /* PlayerAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerAction.swift; sourceTree = "<group>"; };
@@ -91,7 +89,6 @@
 			children = (
 				FF557C612B962DDE00EECCBC /* PlayerState.swift */,
 				FF557C672B96304A00EECCBC /* PlayerClient.swift */,
-				FF557C652B962E7700EECCBC /* PlayerFeature.swift */,
 				FF557C6C2B9631CF00EECCBC /* PlayerAction.swift */,
 			);
 			path = Global;
@@ -207,7 +204,6 @@
 				FF557C6D2B9631CF00EECCBC /* PlayerAction.swift in Sources */,
 				FF557C6F2B96353900EECCBC /* App.swift in Sources */,
 				FF557C682B96304A00EECCBC /* PlayerClient.swift in Sources */,
-				FF557C662B962E7700EECCBC /* PlayerFeature.swift in Sources */,
 				FF557C742B96422A00EECCBC /* MainReducer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
