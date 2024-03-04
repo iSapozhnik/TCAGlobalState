@@ -12,16 +12,16 @@ struct MainView: View {
                 PlayerView(state: store.playerState.mode) {
                     switch store.playerState.mode {
                     case .playing:
-                        store.send(.player(.stop))
+                        store.send(.playbackModeChanged(.stopped))
                     case .stopped:
-                        store.send(.player(.play))
+                        store.send(.playbackModeChanged(.playing))
                     case .paused:
-                        store.send(.player(.play))
+                        store.send(.playbackModeChanged(.playing))
                     }
                 }
                 .padding(.bottom, 16)
             }
-            .onAppear { store.send(.onAppear) }
+            .task { await store.send(.task).finish() }
         }
     }
 }
