@@ -1,3 +1,3 @@
 # TCAGlobalState
 
-Exploring Global Sgared State with TCA
+Exploring Global Shared State with TCA
