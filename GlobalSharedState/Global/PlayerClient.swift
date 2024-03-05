@@ -1,36 +1,34 @@
-import Foundation
 import ComposableArchitecture
+import Foundation
 import Combine
 
-@dynamicMemberLookup
-struct PlayerClient: Sendable {
-    var get: @Sendable () -> PlayerState
-    var set: @Sendable (PlayerState) -> Void
+struct PlayerClient {
+    var play: @Sendable () async throws -> Void
+    var pause: @Sendable () async throws -> Void
+    var stop: @Sendable () async throws -> Void
     
-    var stream: @Sendable () -> AsyncStream<PlayerState>
-    
-    func modify(_ operation: (inout PlayerState) -> Void) {
-        var me = self.get()
-        operation(&me)
-        self.set(me)
-    }
-    
-    subscript<Value>(dynamicMember keyPath: KeyPath<PlayerState, Value>) -> Value {
-        self.get()[keyPath: keyPath]
-    }
+    var stateStream: @Sendable () -> AsyncStream<PlayerState>
 }
 
 extension PlayerClient: DependencyKey {
+
     static var liveValue: PlayerClient {
-        let recording = LockIsolated(PlayerState())
-        let subject = PassthroughSubject<PlayerState, Never>()
-        return PlayerClient(
-            get: { recording.value },
-            set: {
-                recording.setValue($0)
-                subject.send($0)
+        
+        let player = Player()
+
+        return Self(
+            play: {
+                player.play()
             },
-            stream: { subject.values.eraseToStream() }
+            pause: {
+                player.pause()
+            },
+            stop: {
+                player.stop()
+            },
+            stateStream: {
+                player.playerState.stream()
+            }
         )
     }
 }
@@ -39,5 +37,33 @@ extension DependencyValues {
     var player: PlayerClient {
         get { self[PlayerClient.self] }
         set { self[PlayerClient.self] = newValue }
+    }
+}
+
+final class Player {
+    @Dependency(\.continuousClock) var clock
+    @Dependency(\.playerState) var playerState
+
+    private var task: Task<Void, Never>?
+    
+    func play() {
+        playerState.modify { $0.mode = .playing }
+        task = Task {
+            for await _ in self.clock.timer(interval: .seconds(1)) {
+                playerState.modify { $0.duration += 1 }
+            }
+        }
+    }
+    
+    func stop() {
+        playerState.modify { $0.mode = .stopped; $0.duration = 0 }
+        task?.cancel()
+        task = nil
+    }
+    
+    func pause() {
+        playerState.modify { $0.mode = .paused }
+        task?.cancel()
+        task = nil
     }
 }

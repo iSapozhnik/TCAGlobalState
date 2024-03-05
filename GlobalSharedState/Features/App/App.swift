@@ -78,6 +78,14 @@ struct RootScene: Scene {
                     })
                 }
                 
+                Divider()
+                
+                Button(action: {
+                    openWindow(id: WindowID.main)
+                }, label: {
+                    Text("Open main window")
+                })
+                
                 Button(action: {
                     store.send(.settingsClicked)
                 }, label: {

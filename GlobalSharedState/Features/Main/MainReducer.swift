@@ -16,7 +16,7 @@ struct MainReducer {
         
         case globalPlayerStateUpdated(PlayerState)
     }
-    
+
     @Dependency(\.player) var player
     
     var body: some ReducerOf<Self> {
@@ -26,14 +26,21 @@ struct MainReducer {
                 // now we can start observing any changes in the global state
                 // and sync with the local copy of the global state
                 return .run { send in
-                    for await newState in player.stream() {
+                    for await newState in player.stateStream() {
                         await send(.globalPlayerStateUpdated(newState))
                     }
                 }
                 
             case let .playbackModeChanged(newMode):
                 return .run { _ in
-                    player.modify { $0.mode = newMode }
+                    switch newMode {
+                    case .playing:
+                        try await player.play()
+                    case .paused:
+                        try await player.pause()
+                    case .stopped:
+                        try await player.stop()
+                    }
                 }
                 
             case let .globalPlayerStateUpdated(newState):

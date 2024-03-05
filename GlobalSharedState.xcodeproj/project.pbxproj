@@ -12,12 +12,12 @@
 		FF557C572B96292A00EECCBC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FF557C562B96292A00EECCBC /* Preview Assets.xcassets */; };
 		FF557C602B962D9B00EECCBC /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = FF557C5F2B962D9B00EECCBC /* ComposableArchitecture */; };
 		FF557C622B962DDE00EECCBC /* PlayerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF557C612B962DDE00EECCBC /* PlayerState.swift */; };
-		FF557C682B96304A00EECCBC /* PlayerClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF557C672B96304A00EECCBC /* PlayerClient.swift */; };
+		FF557C682B96304A00EECCBC /* PlayerStateClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF557C672B96304A00EECCBC /* PlayerStateClient.swift */; };
 		FF557C6B2B96317300EECCBC /* AppReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF557C6A2B96317300EECCBC /* AppReducer.swift */; };
-		FF557C6D2B9631CF00EECCBC /* PlayerAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF557C6C2B9631CF00EECCBC /* PlayerAction.swift */; };
 		FF557C6F2B96353900EECCBC /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF557C6E2B96353900EECCBC /* App.swift */; };
 		FF557C722B96394500EECCBC /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF557C712B96394500EECCBC /* MainView.swift */; };
 		FF557C742B96422A00EECCBC /* MainReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF557C732B96422A00EECCBC /* MainReducer.swift */; };
+		FF557C762B9701AB00EECCBC /* PlayerClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF557C752B9701AB00EECCBC /* PlayerClient.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,12 +27,12 @@
 		FF557C562B96292A00EECCBC /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		FF557C582B96292A00EECCBC /* GlobalSharedState.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GlobalSharedState.entitlements; sourceTree = "<group>"; };
 		FF557C612B962DDE00EECCBC /* PlayerState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerState.swift; sourceTree = "<group>"; };
-		FF557C672B96304A00EECCBC /* PlayerClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerClient.swift; sourceTree = "<group>"; };
+		FF557C672B96304A00EECCBC /* PlayerStateClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerStateClient.swift; sourceTree = "<group>"; };
 		FF557C6A2B96317300EECCBC /* AppReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppReducer.swift; sourceTree = "<group>"; };
-		FF557C6C2B9631CF00EECCBC /* PlayerAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerAction.swift; sourceTree = "<group>"; };
 		FF557C6E2B96353900EECCBC /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		FF557C712B96394500EECCBC /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		FF557C732B96422A00EECCBC /* MainReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainReducer.swift; sourceTree = "<group>"; };
+		FF557C752B9701AB00EECCBC /* PlayerClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerClient.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,11 +66,11 @@
 		FF557C4E2B96292900EECCBC /* GlobalSharedState */ = {
 			isa = PBXGroup;
 			children = (
-				FF557C642B962E3E00EECCBC /* Features */,
-				FF557C4F2B96292900EECCBC /* GlobalSharedStateApp.swift */,
-				FF557C632B962E3600EECCBC /* Global */,
-				FF557C532B96292A00EECCBC /* Assets.xcassets */,
 				FF557C582B96292A00EECCBC /* GlobalSharedState.entitlements */,
+				FF557C4F2B96292900EECCBC /* GlobalSharedStateApp.swift */,
+				FF557C532B96292A00EECCBC /* Assets.xcassets */,
+				FF557C642B962E3E00EECCBC /* Features */,
+				FF557C632B962E3600EECCBC /* Global */,
 				FF557C552B96292A00EECCBC /* Preview Content */,
 			);
 			path = GlobalSharedState;
@@ -87,9 +87,9 @@
 		FF557C632B962E3600EECCBC /* Global */ = {
 			isa = PBXGroup;
 			children = (
+				FF557C752B9701AB00EECCBC /* PlayerClient.swift */,
 				FF557C612B962DDE00EECCBC /* PlayerState.swift */,
-				FF557C672B96304A00EECCBC /* PlayerClient.swift */,
-				FF557C6C2B9631CF00EECCBC /* PlayerAction.swift */,
+				FF557C672B96304A00EECCBC /* PlayerStateClient.swift */,
 			);
 			path = Global;
 			sourceTree = "<group>";
@@ -197,13 +197,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FF557C762B9701AB00EECCBC /* PlayerClient.swift in Sources */,
 				FF557C6B2B96317300EECCBC /* AppReducer.swift in Sources */,
 				FF557C722B96394500EECCBC /* MainView.swift in Sources */,
 				FF557C622B962DDE00EECCBC /* PlayerState.swift in Sources */,
 				FF557C502B96292900EECCBC /* GlobalSharedStateApp.swift in Sources */,
-				FF557C6D2B9631CF00EECCBC /* PlayerAction.swift in Sources */,
 				FF557C6F2B96353900EECCBC /* App.swift in Sources */,
-				FF557C682B96304A00EECCBC /* PlayerClient.swift in Sources */,
+				FF557C682B96304A00EECCBC /* PlayerStateClient.swift in Sources */,
 				FF557C742B96422A00EECCBC /* MainReducer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

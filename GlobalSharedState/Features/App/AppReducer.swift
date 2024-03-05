@@ -1,6 +1,7 @@
 import Foundation
 import ComposableArchitecture
 import Cocoa
+import SwiftUI
 
 @Reducer
 struct AppReducer {
@@ -21,6 +22,7 @@ struct AppReducer {
         case globalPlayerStateUpdated(PlayerState)
     }
     
+    @Environment(\.openWindow) private var openWindow
     @Dependency(\.player) var player
 
     var body: some ReducerOf<Self> {
@@ -30,7 +32,7 @@ struct AppReducer {
                 // now we can start observing any changes in the global state
                 // and sync with the local copy of the global state
                 return .run { send in
-                    for await newState in player.stream() {
+                    for await newState in player.stateStream() {
                         await send(.globalPlayerStateUpdated(newState))
                     }
                 }
@@ -41,7 +43,14 @@ struct AppReducer {
             // Player actions - could be triggered form the main window or menu bar
             case let .playbackModeChanged(newMode):
                 return .run { _ in
-                    player.modify { $0.mode = newMode }
+                    switch newMode {
+                    case .playing:
+                        try await player.play()
+                    case .paused:
+                        try await player.pause()
+                    case .stopped:
+                        try await player.stop()
+                    }
                 }
                 
             // Menu bar actions

@@ -4,10 +4,10 @@ import ComposableArchitecture
 @main
 struct GlobalSharedStateApp: App {
     private let store: StoreOf<AppReducer> = {
-        @Dependency(\.player) var player
+        @Dependency(\.playerState) var playerState
         
         return .init(
-            initialState: .init(playerState: .init(mode: player.get().mode)), 
+            initialState: .init(playerState: .init(mode: playerState.get().mode)), 
             reducer: { AppReducer() }
         )
     }()

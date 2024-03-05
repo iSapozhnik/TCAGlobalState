@@ -1,4 +1,5 @@
 import Foundation
+import ComposableArchitecture
 
 struct PlayerState: Equatable {
     enum Mode {
@@ -7,5 +8,6 @@ struct PlayerState: Equatable {
         case stopped
     }
     
-    var mode: Mode = .playing
+    var mode: Mode = .stopped
+    var duration: TimeInterval = 0
 }
