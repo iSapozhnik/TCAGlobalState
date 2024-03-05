@@ -22,6 +22,7 @@ struct RootScene: Scene {
                         reducer: { MainReducer() }
                     )
                 )
+                .task { await store.send(.task).finish() }
                 .frame(width: 200, height: 300)
             }
         }
@@ -38,7 +39,6 @@ struct RootScene: Scene {
         WithPerceptionTracking {
             Image(systemName: store.playerState.mode == .playing ? "stop.circle.fill" : "play.circle.fill")
                 .onAppear {
-                    store.send(.onAppear)
                     openWindow(id: WindowID.main)
                 }
                 .onChange(of: store.playerState.mode) { mode in
@@ -55,28 +55,36 @@ struct RootScene: Scene {
                 switch store.playerState.mode {
                 case .playing:
                     Button(action: {
-                        store.send(.player(.stop))
+                        store.send(.playbackModeChanged(.stopped))
                     }, label: {
                         Text("Stop")
                     })
                     Button(action: {
-                        store.send(.player(.pause))
+                        store.send(.playbackModeChanged(.paused))
                     }, label: {
                         Text("Pause")
                     })
                 case .paused:
                     Button(action: {
-                        store.send(.player(.play))
+                        store.send(.playbackModeChanged(.playing))
                     }, label: {
                         Text("Play")
                     })
                 case .stopped:
                     Button(action: {
-                        store.send(.player(.play))
+                        store.send(.playbackModeChanged(.playing))
                     }, label: {
                         Text("Play")
                     })
                 }
+                
+                Divider()
+                
+                Button(action: {
+                    openWindow(id: WindowID.main)
+                }, label: {
+                    Text("Open main window")
+                })
                 
                 Button(action: {
                     store.send(.settingsClicked)

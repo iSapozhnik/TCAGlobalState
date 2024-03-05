@@ -3,25 +3,33 @@ import ComposableArchitecture
 
 struct MainView: View {
     let store: StoreOf<MainReducer>
+    private let formatter: DateComponentsFormatter = {
+        let formatter = DateComponentsFormatter()
+        formatter.allowedUnits = [.minute, .second]
+        formatter.zeroFormattingBehavior = .pad
+        formatter.unitsStyle = .positional
+        return formatter
+    }()
     
     var body: some View {
         WithPerceptionTracking {
             VStack {
                 Text("Main player view with a list of audio clips")
                 Spacer()
+                Text(formatter.string(from: store.playerState.duration) ?? "00:00")
                 PlayerView(state: store.playerState.mode) {
                     switch store.playerState.mode {
                     case .playing:
-                        store.send(.player(.stop))
+                        store.send(.playbackModeChanged(.stopped))
                     case .stopped:
-                        store.send(.player(.play))
+                        store.send(.playbackModeChanged(.playing))
                     case .paused:
-                        store.send(.player(.play))
+                        store.send(.playbackModeChanged(.playing))
                     }
                 }
                 .padding(.bottom, 16)
             }
-            .onAppear { store.send(.onAppear) }
+            .task { await store.send(.task).finish() }
         }
     }
 }

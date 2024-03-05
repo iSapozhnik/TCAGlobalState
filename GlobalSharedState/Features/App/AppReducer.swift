@@ -1,6 +1,7 @@
 import Foundation
 import ComposableArchitecture
 import Cocoa
+import SwiftUI
 
 @Reducer
 struct AppReducer {
@@ -11,8 +12,9 @@ struct AppReducer {
     }
     
     enum Action: Equatable {
-        case onAppear
-        case player(PlayerAction)
+        case task
+
+        case playbackModeChanged(PlayerState.Mode)
         
         case settingsClicked
         case quitClicked
@@ -20,19 +22,17 @@ struct AppReducer {
         case globalPlayerStateUpdated(PlayerState)
     }
     
+    @Environment(\.openWindow) private var openWindow
     @Dependency(\.player) var player
 
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
-            case .onAppear:
-                // first thing first - sync the global value back to the local copy
-                state.playerState = player.get()
-                
+            case .task:
                 // now we can start observing any changes in the global state
                 // and sync with the local copy of the global state
                 return .run { send in
-                    for await newState in player.stream() {
+                    for await newState in player.stateStream() {
                         await send(.globalPlayerStateUpdated(newState))
                     }
                 }
@@ -41,20 +41,17 @@ struct AppReducer {
                 return .none
                 
             // Player actions - could be triggered form the main window or menu bar
-            case .player(.play):
-                print("Player started")
-                state.playerState.mode = .playing
-
-                return .none
-            case .player(.pause):
-                print("Player started")
-                state.playerState.mode = .paused
-
-                return .none
-            case .player(.stop):
-                print("Player stopped")
-                state.playerState.mode = .stopped
-                return .none
+            case let .playbackModeChanged(newMode):
+                return .run { _ in
+                    switch newMode {
+                    case .playing:
+                        try await player.play()
+                    case .paused:
+                        try await player.pause()
+                    case .stopped:
+                        try await player.stop()
+                    }
+                }
                 
             // Menu bar actions
             case .settingsClicked:
@@ -64,10 +61,6 @@ struct AppReducer {
                 NSApplication.shared.terminate(nil)
                 return .none
             }
-        }
-        // Sync the local copy of the state with the global one
-        .onChange(of: \.playerState) { _, newValue in
-            let _ = player.modify { $0 = newValue }
         }
     }
 }
