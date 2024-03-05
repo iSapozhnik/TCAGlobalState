@@ -40,10 +40,10 @@ struct PlayerView: View {
     
     var body: some View {
         ZStack {
-            RoundedRectangle(cornerRadius: 25)
+            RoundedRectangle(cornerRadius: 20)
                 .fill(Color(.windowBackgroundColor))
             HStack {
-                buttonWithIconName("arrow.counterclockwise") {}
+                buttonWithIconName("gobackward.15", width: 20) {}
                 Spacer()
                 switch state {
                 case .paused:
@@ -54,25 +54,32 @@ struct PlayerView: View {
                     buttonWithIconName("play.circle.fill", action: onMainAction)
                 }
                 Spacer()
-                buttonWithIconName("arrow.clockwise") {}
+                buttonWithIconName("goforward.15", width: 20) {}
             }
-            .padding(.horizontal, 16)
+            .padding(.horizontal, 10)
         }
-        .frame(width: 168, height: 50)
+        .frame(width: 168, height: 40)
     }
     
-    private func buttonWithIconName(_ iconName: String, action: @escaping () -> Void) -> some View {
+    private func buttonWithIconName(
+        _ iconName: String,
+        width: CGFloat = 24,
+        action: @escaping () -> Void
+    ) -> some View {
         Button(action: action, label: {
-            imageWithName(iconName)
+            imageWithName(iconName, width: width)
         })
         .buttonStyle(.plain)
     }
     
-    private func imageWithName(_ iconName: String) -> some View {
+    private func imageWithName(
+        _ iconName: String,
+        width: CGFloat
+    ) -> some View {
         Image(systemName: iconName)
             .resizable()
             .aspectRatio(contentMode: .fit)
-            .frame(width: 24, height: 24)
+            .frame(width: width, height: width)
     }
 }
 
